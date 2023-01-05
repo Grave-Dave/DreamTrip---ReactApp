@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '../components/Header';
-import TripBox from '../components/TripBox';
+import TripItem from '../components/TripItem';
 import Footer from '../components/Footer';
 import photo1 from '../img/photo1.png';
 import photo2 from '../img/photo2.jpg';
 import photo3 from '../img/photo3.png';
+import { Link } from 'react-router-dom';
 
 function Home() {
 	return (
@@ -28,9 +29,19 @@ function Home() {
 							</div>
 							<div className='shadow'></div>
 						</div>
-
-						<TripBox />
-					
+						<div className='trip-box'>
+							<div className='trip-heading'>
+								<h2>Your trips</h2>
+								<Link to='/form'>
+									<p>
+										add trip <i className='fa-solid fa-plus'></i>
+									</p>
+								</Link>
+							</div>
+							<div className='trip-items'>
+								<TripItem />
+							</div>
+						</div>
 					</div>
 				</div>
 			</main>
