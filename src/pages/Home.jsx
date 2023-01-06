@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import TripItem from '../components/TripItem';
 import Footer from '../components/Footer';
@@ -8,6 +8,18 @@ import photo3 from '../img/photo3.png';
 import { Link } from 'react-router-dom';
 
 function Home() {
+	const [expandImages, setExpandImages] = useState(false);
+
+	useEffect(() => {
+		function handleScroll() {
+			window.scrollY > 0 && setExpandImages(true);
+		}
+		window.addEventListener('scroll', handleScroll);
+		return ()=>{
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, []);
+
 	return (
 		<div>
 			<Header />
@@ -15,19 +27,19 @@ function Home() {
 			<main>
 				<div className='content'>
 					<div className='content-box'>
-						<div className='image-box'>
-							<div className='image-box__item one'>
+						<div className={`image-box ${expandImages && 'active'}`}>
+							<div className={`image-box__item one ${expandImages && 'active'}`}>
 								<img src={photo1} alt='man walking across mountains' />
 								<h2 className='image-box-text'>Find destination</h2>
 							</div>
 							<div className='image-box__item two'>
 								<h2 className='image-box-text'>Plan perfect journey</h2>
 							</div>
-							<div className='image-box__item three'>
+							<div className={`image-box__item three ${expandImages && 'active'}`}>
 								<img src={photo3} alt='man walking across mountains' />
 								<h2 className='image-box-text'>Enjoy your trip!</h2>
 							</div>
-							<div className='shadow'></div>
+							<div className={`shadow ${expandImages && 'active'}`}></div>
 						</div>
 						<div className='trip-box'>
 							<div className='trip-heading'>
