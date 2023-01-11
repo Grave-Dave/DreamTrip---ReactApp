@@ -1,0 +1,106 @@
+id: '2jeyi1ylbIBOTG_C1s9CE', location_id: '0', name: 'Game & Entertainment Centers', latitude: '51.14225', longitude: '16.944054', …}
+address
+: 
+""
+address_obj
+: 
+{street1: 'Al. Slaska 1', street2: 'Stadion Wrocław', city: 'Wroclaw', state: null, country: 'Poland', …}
+ancestors
+: 
+(4) [{…}, {…}, {…}, {…}]
+awards
+: 
+[]
+bearing
+: 
+"southeast"
+category
+: 
+{key: 'rollup', name: 'Rollup'}
+description
+: 
+""
+distance
+: 
+"0.8233169050250522"
+distance_string
+: 
+null
+doubleclick_zone
+: 
+"eu.poland"
+id
+: 
+"2jeyi1ylbIBOTG_C1s9CE"
+is_candidate_for_contact_info_suppression
+: 
+false
+is_closed
+: 
+false
+is_jfy_enabled
+: 
+false
+is_long_closed
+: 
+false
+latitude
+: 
+"51.14225"
+location_id
+: 
+"0"
+location_string
+: 
+"Wroclaw, Lower Silesia Province, Southern Poland"
+longitude
+: 
+"16.944054"
+name
+: 
+"Game & Entertainment Centers"
+nearest_metro_station
+: 
+[]
+num_reviews
+: 
+"9"
+parent_display_name
+: 
+"Wroclaw"
+photo
+: 
+{images: {…}, is_blessed: true, uploaded_date: '2019-08-07T07:24:09-0400', caption: 'Zdjęcie z toru Le Mans', id: '413987514', …}
+rollup_category
+: 
+{key: 'attraction', name: 'Attraction'}
+rollup_contains_bookable
+: 
+false
+rollup_count
+: 
+3
+subcategory
+: 
+[{…}]
+subtype
+: 
+[{…}]
+timezone
+: 
+"Europe/Warsaw"
+web_url
+: 
+"https://www.tripadvisor.com/Attractions"
+write_review
+: 
+"https://www.tripadvisor.com"
+key
+: 
+(...)
+get key
+: 
+ƒ ()
+[[Prototype]]
+: 
+Object

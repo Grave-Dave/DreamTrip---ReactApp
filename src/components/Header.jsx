@@ -7,7 +7,6 @@ function Header() {
 
 	const {formData, handleChange, handleExplore} = useContext(Context)
 
-// console.log(formData)
 	return (
 		<div className='header'>
 			<Link to='/'>

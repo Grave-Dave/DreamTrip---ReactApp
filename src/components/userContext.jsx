@@ -1,38 +1,55 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import useInput from '../hooks/useInput';
 
 const Context = React.createContext();
 
 function userContext(props) {
-    
-    const [formData, handleChange] = useInput()
+	const [formData, handleChange] = useInput();
+	const [tripItems, setTripItems] = useState([]);
+	const [exploreBtn, setExploreBtn] = useState(false);
+	const [placesData, setPlacesData] = useState([]);
 
-    const [tripItems, setTripItems] = useState([])
-
-    const [exploreBtn, setExploreBtn] = useState(false)
-
-    function handleExplore(){
-        setExploreBtn(prevExploreBtn=>!prevExploreBtn)
+	async function getPlaces(data) {		
+        const placedata = await data
+		setPlacesData(placedata);
+	}
+    function hover(name){
+        setPlacesData(prevPlaceData=>{
+            return prevPlaceData.map(place=>{
+                return place.name === name ? {
+                    ...place,
+                    isHovered: !place.isHovered
+                } : place
+            })
+        })
     }
 
-    function addItems(item){
-        setTripItems(prevTripItems=>(
-            [...prevTripItems, item]
-        ))
-    }
+	function handleExplore() {
+		setExploreBtn(prevExploreBtn => !prevExploreBtn);
+	}
 
-	return <Context.Provider 
-    value={{
-        tripItems, 
-        exploreBtn,
-        formData, 
-        addItems,
-        handleExplore, 
-        handleChange
-    }}
-        >
-        {props.children}
-        </Context.Provider>;
+	function addItems(item) {
+		setTripItems(prevTripItems => [...prevTripItems, item]);
+	}
+
+	return (
+		<Context.Provider
+			value={{
+				tripItems,
+				exploreBtn,
+				formData,
+				placesData,                
+				addItems,
+				handleExplore,
+				handleChange,
+                setPlacesData,
+				getPlaces,
+                hover
+                
+			}}>
+			{props.children}
+		</Context.Provider>
+	);
 }
 
 export { userContext as UserContextProvider, Context };

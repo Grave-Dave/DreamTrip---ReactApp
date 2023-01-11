@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
+import { nanoid } from 'nanoid';
 
 export default function useInput(){
 
     const [formData, setFormData] = useState({
+        id: nanoid(),
         direction: '',
-        name:'',
+        tripName:'',
         startDate:'',
         endDate:'',
         travelers:''
