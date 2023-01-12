@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import TripItem from '../components/TripItem';
 import Footer from '../components/Footer';
 import photo1 from '../img/photo1.png';
 import photo2 from '../img/photo2.jpg';
 import photo3 from '../img/photo3.png';
-import { Link } from 'react-router-dom';
+import { Context } from '../components/userContext';
 
 function Home() {
+
+	const { isHome, setIsHome, setIsReady } = useContext(Context);
 	const [expandImages, setExpandImages] = useState(false);
 
+	console.log(isHome);
+
 	useEffect(() => {
+		setIsHome(true)
+		setIsReady(false)
 		function handleScroll() {
 			window.scrollY > 0 && setExpandImages(true);
 		}
@@ -44,8 +51,8 @@ function Home() {
 						<div className='trip-box'>
 							<div className='trip-heading'>
 								<h2>Your trips</h2>
-								<Link to='/form'>
-									<p>
+								<Link to='/form' onClick={()=>setIsHome(false)}>
+									<p >
 										add trip <i className='fa-solid fa-plus'></i>
 									</p>
 								</Link>

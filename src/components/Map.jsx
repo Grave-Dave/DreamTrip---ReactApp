@@ -3,7 +3,8 @@ import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import { Context } from './userContext';
 import { useEffect } from 'react';
 import icon from '../img/ordynary.png'
-import icon2 from '../img/chosen.png'
+import icon2 from '../img/hovered.png'
+import icon3 from '../img/chosen.png'
 
 const containerStyle = {
 	width: '100%',
@@ -11,15 +12,15 @@ const containerStyle = {
 };
 
 function Map({ coordinates }) {
-	const { placesData } = useContext(Context);
-console.log(placesData);
+	const { placesData, saveAttractions } = useContext(Context);
+// console.log(placesData);
 	let markers = placesData.map(place => {
 		return (
 			<MarkerF
 				position={{ lat: Number(place.latitude), lng: Number(place.longitude) }}
 				title={place.name}
-				options={place.isHovered ? {icon:icon2} : {icon:icon}}
-        onTitleChanged={()=>console.log('hello')}
+				onClick={()=>{saveAttractions(place)}}
+				options={place.isHovered ? {icon:icon2} : place.isSaved ? {icon:icon3} : {icon:icon}}
 			/>
 		);
 	});

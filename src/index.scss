@@ -11,6 +11,10 @@ body {
 	font-family: 'Montserrat', sans-serif;
 	background-color: #f4f4f4;
 	position: relative;
+	background-image: url(./img/Component.png);
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
 }
 
 .header {
@@ -25,6 +29,7 @@ body {
 	background-size: cover;
 	color: #fff;
 	z-index: 0;
+	box-shadow: 0 0 20px #000;
 	&::after {
 		content: '';
 		position: absolute;
@@ -34,6 +39,13 @@ body {
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.7);
 		z-index: -1;
+	}
+	.fa-arrow-left {
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: 1em;
+		font-size: 3em;
 	}
 	a {
 		text-decoration: none;
@@ -86,6 +98,9 @@ body {
 		}
 		&--btn:hover {
 			background-color: rgb(196, 186, 7);
+		}
+		&--btn:disabled {
+			background-color: rgb(118, 118, 115);
 		}
 	}
 }
@@ -318,7 +333,7 @@ main {
 			background-image: url(./img/prague-gfd6b36319_1920.jpg);
 			background-position: center;
 			background-size: cover;
-			box-shadow: 0 0 5px #000;
+			// box-shadow: 0 0 5px #000;
 		}
 		label {
 			padding: 0.7em;
@@ -333,6 +348,14 @@ main {
 			border-radius: 15px;
 			border: none;
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+		}
+		a {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+			cursor: default;
 		}
 		.form-btn {
 			position: relative;
@@ -365,6 +388,14 @@ main {
 		.form-btn:hover::after {
 			transform: scaleX(100%);
 			transform-origin: left;
+		}
+		.form-btn:disabled {
+			background-color: #ddd;
+			cursor: default;
+		}
+		.form-btn:disabled::after {
+			background-color: #ddd;
+			transform: none;
 		}
 		.progres-box {
 			position: relative;
@@ -422,40 +453,62 @@ main {
 		}
 
 		.place-box {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			overflow-y: auto;
-			box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
 			width: 100%;
-			// height: 70%;
-			padding: 0 1em;
+			min-height: 30%;
+			padding: 1em;
 			background-color: rgb(248, 248, 248);
+			text-align: center;
+			box-shadow: rgba(0, 0, 0, 0.26) 0px 2px 4px 0px inset;
+			h4 {
+				margin-top: 1em;
+				text-transform: uppercase;
+				font-size: 1.3rem;
+			}
 		}
 		.place-item {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			padding: 1em;
+			width: 300px;
+			padding: 1.5em;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 		}
-		.place-item:last-child {
-			border-bottom: none;
+		.place-item.active {
+			background-color: rgb(182, 238, 199);
 		}
+		// .place-item:last-of-type {
+		// 	border-bottom: none;
+		// }
 		.place-header {
 			font-size: 1.7rem;
-			padding: 1em;
+			padding-bottom: 1em;
 		}
 		.place-img {
 			max-width: 200px;
 			max-height: 200px;
 			object-fit: cover;
 		}
-		.rank-box{
+		.rank-box {
 			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 1em;
 		}
 		.place-rank {
 			font-size: 1.3rem;
 			padding: 1em;
-			i{
-				margin-right: .5em;
+			i {
+				margin-right: 0.5em;
+			}
+		}
+		.place-details {
+			font-size: 1.2rem;
+			i {
+				margin-right: 0.5em;
 			}
 		}
 		.place-btn {
@@ -467,10 +520,22 @@ main {
 			transition: background-color 0.3s;
 			cursor: pointer;
 		}
+		.place-btn.saved {
+			background-color: rgb(227, 121, 95);
+		}
 		.place-btn:hover {
 			background-color: rgb(30, 194, 142);
 		}
-		.input-box{
+		.place-btn.saved:hover {
+			background-color: rgb(223, 91, 58);
+		}
+
+		.place-btn:disabled {
+			background-color: #ddd;
+			cursor: default;
+		}
+
+		.input-box {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -478,6 +543,17 @@ main {
 			width: 100%;
 		}
 	}
+}
+.finish {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2em;
+	background-image: url(./img/plane.jpg);
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
 }
 .map-container {
 	height: 100%;

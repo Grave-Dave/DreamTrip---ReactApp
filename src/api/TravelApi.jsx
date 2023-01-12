@@ -16,11 +16,10 @@ export const getPlacesData = async (type, coords) => {
 				bl_latitude: `${lat - 0.07}`,
 			},
 			headers: {
-				'X-RapidAPI-Key': 'afc5704113mshdd6a281c8e9053ap185d00jsn00dd7db65ce2',
+				'X-RapidAPI-Key': import.meta.env.VITE_TRAVEL_API_KEY,
 				'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
 			},
 		});
-		console.log(data);
 		return data;
 	} catch (error) {
 		console.log(error);

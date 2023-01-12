@@ -1,29 +1,43 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Place from '../components/Place';
-import Attraction from '../components/Attraction';
 import Map from '../components/Map';
 import { Context } from '../components/userContext';
 import useInput from '../hooks/useInput';
 import { setFormStep1, setFormStep2, setFormStep3, setProgressBar } from '../utils/index';
 import { getPlacesData } from '../api/TravelApi';
+import ClockLoader from 'react-spinners/ClockLoader ';
 
 function Form() {
-	const { formData, handleChange, exploreBtn, addItems, tripItems, getPlaces, placesData, setPlacesData } = useContext(Context);
-	console.log(formData);
-	console.log(placesData);
+	const {
+		formData,
+		handleChange,
+		exploreBtn,
+		addItems,
+		tripItems,
+		getPlaces,
+		placesData,
+		setPlacesData,
+		step,
+		setStep,
+		isReady,
+		setIsReady,
+		resetInput
+	} = useContext(Context);
+
+	// console.log(formData);
+	// console.log(placesData);
+
 	const [coordinates, setCoordinates] = useState({
 		lat: 52.237,
 		lng: 21.017,
 	});
-
-	const [step, setStep] = useState(1);
-
 	const [search, setSearch] = useState(false);
 
 	function handleStep(e) {
-		setPlacesData([])
+		setPlacesData([]);
 		e.preventDefault();
 		setStep(prevStep => {
 			if (prevStep < 3) {
@@ -31,13 +45,11 @@ function Form() {
 			} else return 1;
 		});
 		if (step === 1) {
+			addItems(formData);
 			getPlaces(getPlacesData('attractions', coordinates));
-
-			console.log('hotele');
 		} else if (step === 2) {
 			getPlaces(getPlacesData('restaurants', coordinates));
 		}
-		addItems(formData);
 	}
 
 	function handleSearch(e) {
@@ -46,13 +58,13 @@ function Form() {
 	}
 
 	const places = placesData.map((place, index) => {
-		return <Place key={index} id={formData.id} {...place}/>;
+		return <Place key={index} {...place} />;
 	});
-	console.log(places);
+	// console.log(places);
 
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition(position => {
-			setCoordinates(prevCoordinates =>
+			formData.direction === '' && setCoordinates(prevCoordinates =>
 				position
 					? {
 							lat: position.coords.latitude,
@@ -134,36 +146,69 @@ function Form() {
 					) : step === 2 ? (
 						<div className='form-item'>
 							<h2 className='form-header'>Find attractions</h2>
-							<div className='place-box'>{placesData.length ? places : 'loading...'}</div>
+							<div className='place-box'>
+								{placesData.length ? (
+									places
+								) : (
+									<div>
+										<ClockLoader color='#17e1a1' size={120} />
+										<h4>
+											just a second <i className='fa-regular fa-clock'></i>
+										</h4>
+									</div>
+								)}
+							</div>
 						</div>
 					) : (
 						step === 3 && (
 							<div className='form-item'>
 								<h2 className='form-header'>Find restaurants</h2>
 								<div className='place-box'>
-								{placesData.length ? places : 'loading...'}
+									{placesData.length ? (
+										places
+									) : (
+										<div>
+											<ClockLoader color='#17e1a1' size={120} />
+											<h4>
+												just a second <i className='fa-regular fa-clock'></i>
+											</h4>
+										</div>
+									)}
 								</div>
 							</div>
 						)
 					)}
 
-					<button
-						onClick={e => {
-							if (step === 3) {
-								handleStep(e);
-							} else {
+					{step === 3 ? (
+						<Link to='/finish'>
+							<button
+								onClick={() => {
+									setIsReady(false);
+									setStep(1);
+									setPlacesData([]);
+									resetInput()
+								}}
+								className='form-btn'>
+								add trip
+							</button>
+						</Link>
+					) : (
+						<button
+							disabled={!isReady && true}
+							onClick={e => {
 								handleSearch(e);
 								handleStep(e);
-							}
-						}}
-						className='form-btn'>
-						{step === 3 ? 'add trip' : 'Next'}
-					</button>
+							}}
+							className='form-btn'>
+							{!isReady ? 'Please choose destination and hit "EXPLORE"' : 'Next'}
+						</button>
+					)}
+
 					<div className='progres-box'>
 						<div className='progres-bar' style={styles}></div>
-						<div className={setFormStep1(step)}>{step > 1 ? <i class='fa-solid fa-check'></i> : 1}</div>
-						<div className={setFormStep2(step)}>{step > 2 ? <i class='fa-solid fa-check'></i> : 2}</div>
-						<div className={setFormStep3(step)}>{step > 3 ? <i class='fa-solid fa-check'></i> : 3}</div>
+						<div className={setFormStep1(step)}>{step > 1 ? <i className='fa-solid fa-check'></i> : 1}</div>
+						<div className={setFormStep2(step)}>{step > 2 ? <i className='fa-solid fa-check'></i> : 2}</div>
+						<div className={setFormStep3(step)}>{step > 3 ? <i className='fa-solid fa-check'></i> : 3}</div>
 					</div>
 				</form>
 				<Map coordinates={coordinates} />
