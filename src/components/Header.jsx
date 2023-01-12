@@ -42,6 +42,7 @@ function Header() {
 							onClick={() => {
 								handleExplore();
 								formData.direction && setIsReady(true);
+								!formData.direction && setIsReady(false);
 								setIsHome(false);
 							}}
 							className='header__input--btn'>

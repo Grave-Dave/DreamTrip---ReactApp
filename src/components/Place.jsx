@@ -5,7 +5,7 @@ import img2 from '../img/attraction.png';
 import img3 from '../img/picture.png';
 
 export default function Place(props) {
-	const { hover, saveAttractions, step } = useContext(Context);
+	const { hover, saveAttractions, saveRestaurants, step } = useContext(Context);
 	return (
 		<div>
 			<div

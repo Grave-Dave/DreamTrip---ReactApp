@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Place from '../components/Place';
 import Map from '../components/Map';
+import Photo from '../api/PixabayApi'
 import { Context } from '../components/userContext';
 import useInput from '../hooks/useInput';
 import { setFormStep1, setFormStep2, setFormStep3, setProgressBar } from '../utils/index';
@@ -15,8 +16,7 @@ function Form() {
 		formData,
 		handleChange,
 		exploreBtn,
-		addItems,
-		tripItems,
+		addTripItems,
 		getPlaces,
 		placesData,
 		setPlacesData,
@@ -24,7 +24,10 @@ function Form() {
 		setStep,
 		isReady,
 		setIsReady,
-		resetInput
+		resetInput,
+		setSavedAttractions,
+		setSavedRestaurants,	
+		setTripNumber	
 	} = useContext(Context);
 
 	// console.log(formData);
@@ -35,6 +38,7 @@ function Form() {
 		lng: 21.017,
 	});
 	const [search, setSearch] = useState(false);
+	const [showForm, setShowForm]=useState(true)
 
 	function handleStep(e) {
 		setPlacesData([]);
@@ -44,8 +48,7 @@ function Form() {
 				return prevStep + 1;
 			} else return 1;
 		});
-		if (step === 1) {
-			addItems(formData);
+		if (step === 1) {			
 			getPlaces(getPlacesData('attractions', coordinates));
 		} else if (step === 2) {
 			getPlaces(getPlacesData('restaurants', coordinates));
@@ -104,13 +107,14 @@ function Form() {
 		<div>
 			<Header />
 			<div className='form'>
-				<form>
-					<div className='photo'></div>
+				<form className={!showForm ? 'active' : ''}>
+					<div onClick = {()=>setShowForm(prev=> !prev)}className="drag-icon"><i className="fa-solid fa-grip-lines-vertical"></i></div>
+					<Photo destination = {formData.direction}/>
 					{step === 1 ? (
 						<div className='form-item'>
 							<div className='input-box'>
 								<label htmlFor='tripName'>Trip name</label>
-								<input type='text' name='tripName' onChange={e => handleChange(e)} value={formData.tripName} />
+								<input type='text' name='tripName' onChange={e => handleChange(e)} value={formData.tripName} maxLength="20" />
 							</div>
 							<div className='input-box'>
 								<label htmlFor='startDate'>Start: </label>
@@ -187,6 +191,10 @@ function Form() {
 									setStep(1);
 									setPlacesData([]);
 									resetInput()
+									addTripItems()
+									setSavedAttractions([])
+									setSavedRestaurants([])
+									setTripNumber(prevNumber=>prevNumber+1)
 								}}
 								className='form-btn'>
 								add trip

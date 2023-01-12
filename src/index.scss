@@ -147,7 +147,7 @@ main {
 				z-index: 1;
 				border-radius: 15px;
 				opacity: 0;
-				transition: opacity 1.2s;
+				transition: opacity 2.5s;
 			}
 			.shadow.active {
 				opacity: 1;
@@ -181,14 +181,14 @@ main {
 				}
 			}
 			&__item.one {
-				transform: translateY(46%);
+				transform: translateY(50%);
 				z-index: 1;
 			}
 			&__item.one.active {
 				transform: translateY(0);
 			}
 			&__item.three {
-				transform: translateY(-46%);
+				transform: translateY(-50%);
 			}
 			&__item.three.active {
 				transform: translateY(0);
@@ -203,9 +203,10 @@ main {
 			flex-direction: column;
 			justify-content: space-between;
 			align-self: baseline;
-			max-height: 700px;
+			max-height: 750px;
 			max-width: 500px;
 			min-width: 200px;
+			width: 100%;
 			&__item {
 				padding: 1em;
 				border-bottom: 1px solid rgba(0, 0, 0, 0.5);
@@ -224,6 +225,9 @@ main {
 					background-color: rgba(0, 0, 0, 0.6);
 					border-radius: 3px;
 					color: #fff;
+					i {
+						cursor: pointer;
+					}
 				}
 				.trip-info {
 					display: flex;
@@ -234,12 +238,45 @@ main {
 					.trip-details {
 						display: flex;
 						flex-direction: column;
-						justify-content: space-evenly;
+						justify-content: space-between;
 						height: 90%;
 						font-size: 1.4rem;
 						h4,
 						p {
+							width: 200px;
 							padding: 0.5em;
+						}
+						h4 span {
+							text-transform: uppercase;
+						}
+						a {
+							margin-top: 1em;
+							border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+							position: relative;
+							text-decoration: none;
+							color: rgb(0, 0, 0);
+							transition: color 0.3s;
+							z-index: 0;
+							text-align: center;
+						}
+						a::after {
+							content: '';
+							position: absolute;
+							bottom: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							background-color: rgba(0, 0, 0, 0.6);
+							transform: scaleY(0);
+							transition: transform 0.3s;
+							transform-origin: bottom;
+							z-index: -1;
+						}
+						a:hover::after {
+							transform: scaleY(1);
+						}
+						a:hover {
+							color: #fff;
 						}
 					}
 				}
@@ -299,22 +336,41 @@ main {
 .form {
 	display: flex;
 	justify-content: space-between;
-	padding-left: 2em;
-	height: 850px;
 	form {
-		// display: none;
-		// position: relative;
+		position: absolute;
 		display: flex;
 		flex-direction: column;
-		padding-bottom: 2em;
-		max-width: 25%;
-		width: 100%;
-		border-top-left-radius: 25px;
-		border-bottom-left-radius: 25px;
+		min-width: 230px;
+		max-width: 280px;
+		// width: 100%;
+		height: 900px;
+		border-radius: 25px;
+		border-radius: 25px;
 		box-shadow: 0 0 10px #000;
 		background-color: #eaeaea;
-		overflow: hidden;
 		z-index: 10;
+		transition: transform 0.5s;
+		transform: translateX(0);
+		.drag-icon {
+			position: absolute;
+			top: 50%;
+			right: -25px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 25px;
+			height: 100px;
+			background-color: rgb(170, 168, 168);
+			border-top-right-radius: 25px;
+			border-bottom-right-radius: 25px;
+			box-shadow: rgb(144, 147, 149) 3px 3px 6px 0px inset, rgba(133, 132, 132, 0.5) -3px -3px 6px 1px inset;
+			cursor: pointer;
+			i {
+				padding: 0.2em;
+				font-size: 3rem;
+				color: #ddd;
+			}
+		}
 		.form-header {
 			padding-top: 1em;
 		}
@@ -323,17 +379,18 @@ main {
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			row-gap: 1em;
-			height: 500px;
-			margin-bottom: 2em;
+			row-gap: 3em;
+			height: 550px;
+			// margin-bottom: 2em;
 		}
 		.photo {
 			width: 100%;
 			height: 200px;
-			background-image: url(./img/prague-gfd6b36319_1920.jpg);
-			background-position: center;
-			background-size: cover;
-			// box-shadow: 0 0 5px #000;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
 		}
 		label {
 			padding: 0.7em;
@@ -344,7 +401,7 @@ main {
 			padding: 0.5em 2em;
 			width: 100%;
 			max-width: 250px;
-			font-size: 1.6rem;
+			font-size: 1.4rem;
 			border-radius: 15px;
 			border: none;
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
@@ -403,6 +460,7 @@ main {
 			justify-content: space-between;
 			align-self: stretch;
 			margin: 0 auto;
+			padding: 2em 0;
 			width: 80%;
 			z-index: 0;
 			.progres-bar,
@@ -456,6 +514,7 @@ main {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			gap: 1em;
 			overflow-y: auto;
 			width: 100%;
 			min-height: 30%;
@@ -476,9 +535,14 @@ main {
 			width: 300px;
 			padding: 1.5em;
 			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+			transition: 0.3s;
 		}
 		.place-item.active {
 			background-color: rgb(182, 238, 199);
+			box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+				rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+			border-bottom: 1px solid rgba(0, 0, 0, 0);
+			border-radius: 10px;
 		}
 		// .place-item:last-of-type {
 		// 	border-bottom: none;
@@ -543,18 +607,52 @@ main {
 			width: 100%;
 		}
 	}
+	form.active {
+		transform: translate(-100%);
+	}
 }
 .finish {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	gap: 2em;
-	background-image: url(./img/plane.jpg);
+	padding: 20em 0;
+	background-image: url(./img/plane1.jpg);
 	background-position: center;
 	background-size: cover;
 	height: 100vh;
+	z-index: 0;
+	overflow: hidden;
+	h1,
+	h2 {
+		color: #fff;
+		font-size: 3rem;
+	}
+	a {
+		text-transform: uppercase;
+		text-decoration: none;
+		h2 {
+			font-size: 4rem;
+			color: rgb(23, 225, 161);
+		}
+		h2:hover {
+			color: rgb(20, 181, 130);
+		}
+	}
 }
+.finish::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: -1;
+}
+
 .map-container {
 	height: 100%;
 	width: 100vw;
@@ -563,12 +661,32 @@ main {
 .places-container {
 	width: 300px;
 }
+.info-window {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	.info-rank-box {
+		display: flex;
+		gap: 1em;
+		margin-top: 1em;
+	}
+	h3 {
+		margin-bottom: 0.5em;
+	}
+	img {
+		width: 200px;
+	}
+}
 
 footer {
 	background-color: rgba(0, 0, 0, 0.7);
-	p {
+	div {
 		padding: 1.5em;
-		font-size: 1.6rem;
+	}
+	p {
+		padding: 0.5em;
+		font-size: 1.2rem;
 		text-align: center;
 		color: #fff;
 	}
@@ -612,6 +730,12 @@ footer {
 	}
 }
 @media (min-width: 600px) {
+	.form {
+		form {
+			width: 100%;
+			max-width: 370px;
+		}
+	}
 	.content {
 		.content-box {
 			.image-box {
@@ -623,6 +747,11 @@ footer {
 					}
 				}
 			}
+		}
+	}
+	footer {
+		p {
+			font-size: 1.6rem;
 		}
 	}
 }

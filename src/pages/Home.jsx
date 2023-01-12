@@ -10,10 +10,8 @@ import { Context } from '../components/userContext';
 
 function Home() {
 
-	const { isHome, setIsHome, setIsReady } = useContext(Context);
+	const { isHome, setIsHome, setIsReady, tripItems } = useContext(Context);
 	const [expandImages, setExpandImages] = useState(false);
-
-	console.log(isHome);
 
 	useEffect(() => {
 		setIsHome(true)
@@ -26,6 +24,10 @@ function Home() {
 			window.removeEventListener('scroll', handleScroll)
 		}
 	}, []);
+
+	const trips = tripItems.map(trip=>{
+		return <TripItem key={trip.number} trip={trip} />
+	})
 
 	return (
 		<div>
@@ -57,9 +59,9 @@ function Home() {
 									</p>
 								</Link>
 							</div>
-							<div className='trip-items'>
-								<TripItem />
-							</div>
+							{trips.length>0 && <div className='trip-items'>
+								{trips}
+							</div>}
 						</div>
 					</div>
 				</div>
