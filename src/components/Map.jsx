@@ -55,7 +55,7 @@ function Map({ coordinates }) {
 							handleShowing(place.id);
 							hover(place.name);
 						}}
-						options={{ pixelOffset: new window.google.maps.Size(0, -20) }}
+						options={{ pixelOffset: new window.google.maps.Size(0, -27) }}
 						anchor={<MarkerF position={{ lat: Number(place.latitude), lng: Number(place.longitude) }} />}>
 						<div className='info-window'>
 							<h3>{place.name}</h3>

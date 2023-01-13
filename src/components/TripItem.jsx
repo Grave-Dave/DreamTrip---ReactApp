@@ -15,7 +15,7 @@ function TripItem({trip}) {
 					<div className='trip-details'>
 						<h4>Destination: <span>{trip.formData.direction}</span></h4>
 						<p>{`Check-in: ${trip.formData.startDate}`}</p>
-						<p>{`Check-in: ${trip.formData.endDate}`}</p>
+						<p>{`Check-out: ${trip.formData.endDate}`}</p>
 						<Link to={`/${trip.number}`}><p>Click here for DETAILS</p></Link>
 					</div>
 				</div>
