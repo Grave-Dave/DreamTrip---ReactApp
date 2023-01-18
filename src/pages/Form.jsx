@@ -27,16 +27,15 @@ function Form() {
 		resetInput,
 		setSavedAttractions,
 		setSavedRestaurants,	
-		setTripNumber	
+		setTripNumber,
+		coordinates,
+		setCoordinates
 	} = useContext(Context);
 
 	// console.log(formData);
 	// console.log(placesData);
 
-	const [coordinates, setCoordinates] = useState({
-		lat: 52.237,
-		lng: 21.017,
-	});
+	
 	const [search, setSearch] = useState(false);
 	const [showForm, setShowForm]=useState(true)
 

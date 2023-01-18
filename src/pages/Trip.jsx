@@ -1,18 +1,26 @@
 import React, { useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import cloud from '../img/weather/cloud.png';
 import TripDetails from '../components/TripDetails';
+import Weather from '../api/WeatherApi';
 import { Context } from '../components/userContext';
 
 function Trip(props) {
 	const { tripItems } = useContext(Context);
 
 	const { tripId } = useParams();
+	const navigate = useNavigate();
 
 	const thisTrip = tripItems.find(trip => trip.number === Number(tripId));
 
+	// function checkParams() {
+	// 	thisTrip ? console.log('ok') : navigate('/')
+
+	// }
+	// checkParams()
+
 	const travelTimeInMs = Date.parse(thisTrip.formData.endDate) - Date.parse(thisTrip.formData.startDate);
-	const travelTimeInDays = (travelTimeInMs / 1000 / 60 / 60 / 24)+1;
+	const travelTimeInDays = travelTimeInMs / 1000 / 60 / 60 / 24 + 1;
 	const date = new Date();
 	const daysToGo = Math.floor((Date.parse(thisTrip.formData.startDate) - date.getTime()) / 1000 / 60 / 60 / 24);
 	const hoursToGo = Math.floor(((Date.parse(thisTrip.formData.startDate) - date.getTime()) / 1000 / 60 / 60) % 24);
@@ -23,6 +31,18 @@ function Trip(props) {
 	});
 	const restaurants = thisTrip.restaurants.map(restaurant => {
 		return <TripDetails key={restaurant.id} {...restaurant} />;
+	});
+
+	function getWeather() {
+		let weatherArr = [];
+		for (let i = 0; i <= 4; i++) {
+			weatherArr.push(i * 8);
+		}
+		return weatherArr;
+	}
+
+	const weathers = getWeather().map((day, i) => {
+		return <Weather key={i} day={day} coords={thisTrip.coordinates} />;
 	});
 
 	console.log(attractions);
@@ -55,63 +75,34 @@ function Trip(props) {
 						} minutes`}</span>
 					</p>
 					<p>
-						Travel time: <span className='bolder'>{`${travelTimeInDays && travelTimeInDays>0 ? travelTimeInDays : '0'} days`}</span>
+						Travel time:{' '}
+						<span className='bolder'>{`${
+							travelTimeInDays && travelTimeInDays > 0 ? travelTimeInDays : '0'
+						} days`}</span>
 					</p>
 				</div>
 
-				{/* Poniżej każdy element pogodowy przedstawić w oddzielnym komponencie <Weather /> */}
-
 				<div className='weather'>
-					<h3>Expected weather conditions</h3>
-					<div className='weather-box'>
-						<div className='weather-item'>
-							<h4 className='weather-date'>01-02-2023</h4>
-							<img src={cloud} width='50px' />
-							<p>
-								17<sup>o</sup>C
-							</p>
-						</div>
-						<div className='weather-item'>
-							<h4 className='weather-date'>02-02-2023</h4>
-							<img src={cloud} width='50px' />
-							<p>
-								17<sup>o</sup>C
-							</p>
-						</div>
-						<div className='weather-item'>
-							<h4 className='weather-date'>03-02-2023</h4>
-							<img src={cloud} width='50px' />
-							<p>
-								17<sup>o</sup>C
-							</p>
-						</div>
-						<div className='weather-item'>
-							<h4 className='weather-date'>04-02-2023</h4>
-							<img src={cloud} width='50px' />
-							<p>
-								17<sup>o</sup>C
-							</p>
-						</div>
-						<div className='weather-item'>
-							<h4 className='weather-date'>05-02-2023</h4>
-							<img src={cloud} width='50px' />
-							<p>
-								17<sup>o</sup>C
-							</p>
-						</div>
-					</div>
+					<h3>Expected weather conditions for next days in {thisTrip.formData.direction}</h3>
+					<div className='weather-box'>{weathers}</div>
 				</div>
 
-				{/* Poniżej każdą atrakcję i restauracje przedstawić w oddzielnym komponencie <Attraction /> */}
-
-				{attractions.length && <div className='attraction'>
-					<h3>Your attractions:</h3>
-					<div className='attraction-box'>{attractions}</div>
-				</div>}
-				{restaurants.length && <div className='attraction'>
-					<h3>Your restaurants:</h3>
-					<div className='attraction-box'>{restaurants}</div>
-				</div>}
+				{attractions.length ? (
+					<div className='attraction'>
+						<h3>Your attractions:</h3>
+						<div className='attraction-box'>{attractions}</div>
+					</div>
+				) : (
+					''
+				)}
+				{restaurants.length ? (
+					<div className='attraction'>
+						<h3>Your restaurants:</h3>
+						<div className='attraction-box'>{restaurants}</div>
+					</div>
+				) : (
+					''
+				)}
 			</div>
 		</div>
 	);

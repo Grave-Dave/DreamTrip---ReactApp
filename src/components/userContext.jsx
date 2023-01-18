@@ -6,23 +6,30 @@ const Context = React.createContext();
 
 function userContext(props) {
 	const { formData, handleChange, resetInput } = useInput();
-	const [tripItems, setTripItems] = useState(JSON.parse(localStorage.getItem('trips')) || [
-		{
-			number: 0,
-			photo:
-				'https://images.unsplash.com/photo-1563789031959-4c02bcb41319?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-			formData: {
-				direction: 'Santorini',
-				tripName: 'Majówka w Santorini',
-				startDate: '2023-05-01',
-				endDate: '2023-05-07',
-				travelers: '2',
+	const [tripItems, setTripItems] = useState(
+		JSON.parse(localStorage.getItem('trips')) || [
+			{
+				number: 0,
+				photo:
+					'https://images.unsplash.com/photo-1563789031959-4c02bcb41319?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+				formData: {
+					direction: 'Santorini',
+					tripName: 'Majówka w Santorini',
+					startDate: '2023-05-01',
+					endDate: '2023-05-07',
+					travelers: '2',
+				},
+				attractions: [],
+				restaurants: [],
+				coordinates: { lat: 36.3931562, lng: 25.4615092 },
 			},
-			attractions: [],
-			restaurants: [],
-		},
-	]);
-	const [tripNumber, setTripNumber] = useState(JSON.parse(localStorage.getItem('trips')) && JSON.parse(localStorage.getItem('trips')).length>0 ? JSON.parse(localStorage.getItem('trips')).slice(-1)[0].number+1 : 1)
+		]
+	);
+	const [tripNumber, setTripNumber] = useState(
+		JSON.parse(localStorage.getItem('trips')) && JSON.parse(localStorage.getItem('trips')).length > 0
+			? JSON.parse(localStorage.getItem('trips')).slice(-1)[0].number + 1
+			: 1
+	);
 	const [exploreBtn, setExploreBtn] = useState(false);
 	const [currentPhoto, setCurrentPhoto] = useState(false);
 	const [isHome, setIsHome] = useState(false);
@@ -31,12 +38,17 @@ function userContext(props) {
 	const [step, setStep] = useState(1);
 	const [savedAttractions, setSavedAttractions] = useState([]);
 	const [savedRestaurants, setSavedRestaurants] = useState([]);
+	const [coordinates, setCoordinates] = useState({
+		lat: 52.237,
+		lng: 21.017,
+	});
 
 	console.log(savedAttractions);
 	console.log(savedRestaurants);
 	console.log(tripItems);
 	console.log(formData);
-	console.log(tripNumber)
+	console.log(tripNumber);
+	console.log(coordinates);
 
 	async function getPlaces(data) {
 		const placedata = await data;
@@ -121,11 +133,10 @@ function userContext(props) {
 		});
 	}
 
-	useEffect(()=>{
-		console.log(tripItems.length)
-		tripItems.length ? setTripNumber(tripItems.slice(-1)[0].number+1) : setTripNumber(1)
-	},[tripItems])
-	
+	useEffect(() => {
+		console.log(tripItems.length);
+		tripItems.length ? setTripNumber(tripItems.slice(-1)[0].number + 1) : setTripNumber(1);
+	}, [tripItems]);
 
 	function handleExplore() {
 		setExploreBtn(prevExploreBtn => !prevExploreBtn);
@@ -141,6 +152,7 @@ function userContext(props) {
 					formData: formData,
 					attractions: savedAttractions,
 					restaurants: savedRestaurants,
+					coordinates: coordinates,
 				},
 			];
 		});
@@ -182,6 +194,8 @@ function userContext(props) {
 				setCurrentPhoto,
 				setTripNumber,
 				removeTripItems,
+				coordinates,
+				setCoordinates,
 			}}>
 			{props.children}
 		</Context.Provider>
