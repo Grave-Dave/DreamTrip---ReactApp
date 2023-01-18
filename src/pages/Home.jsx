@@ -10,7 +10,7 @@ import { Context } from '../components/userContext';
 
 function Home() {
 
-	const { isHome, setIsHome, setIsReady, tripItems } = useContext(Context);
+	const { setIsHome, setIsReady, tripItems } = useContext(Context);
 	const [expandImages, setExpandImages] = useState(false);
 
 	useEffect(() => {

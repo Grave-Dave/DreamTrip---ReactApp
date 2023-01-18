@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getPlacesData = async (type, coords) => {
 	const lat = Number(coords.lat);
 	const lng = Number(coords.lng);
-	console.log('api call');
+	// console.log('api call');
 
 	try {
 		const {

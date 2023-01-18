@@ -6,7 +6,6 @@ import Place from '../components/Place';
 import Map from '../components/Map';
 import Photo from '../api/PixabayApi'
 import { Context } from '../components/userContext';
-import useInput from '../hooks/useInput';
 import { setFormStep1, setFormStep2, setFormStep3, setProgressBar } from '../utils/index';
 import { getPlacesData } from '../api/TravelApi';
 import ClockLoader from 'react-spinners/ClockLoader ';
@@ -31,10 +30,6 @@ function Form() {
 		coordinates,
 		setCoordinates
 	} = useContext(Context);
-
-	// console.log(formData);
-	// console.log(placesData);
-
 	
 	const [search, setSearch] = useState(false);
 	const [showForm, setShowForm]=useState(true)
@@ -62,7 +57,6 @@ function Form() {
 	const places = placesData.map((place, index) => {
 		return <Place key={index} {...place} />;
 	});
-	// console.log(places);
 
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition(position => {
@@ -93,7 +87,6 @@ function Form() {
 				setCoordinates(prevCoordinates =>
 					formData.direction && data.results[0] ? data.results[0].geometry.location : prevCoordinates
 				);
-				// console.log(data.results[0]);
 			})
 			.catch(err => console.error(err));
 	}, [search, exploreBtn]);

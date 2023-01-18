@@ -43,12 +43,12 @@ function userContext(props) {
 		lng: 21.017,
 	});
 
-	console.log(savedAttractions);
-	console.log(savedRestaurants);
-	console.log(tripItems);
-	console.log(formData);
-	console.log(tripNumber);
-	console.log(coordinates);
+	// console.log(savedAttractions);
+	// console.log(savedRestaurants);
+	// console.log(tripItems);
+	// console.log(formData);
+	// console.log(tripNumber);
+	// console.log(coordinates);
 
 	async function getPlaces(data) {
 		const placedata = await data;
@@ -134,7 +134,6 @@ function userContext(props) {
 	}
 
 	useEffect(() => {
-		console.log(tripItems.length);
 		tripItems.length ? setTripNumber(tripItems.slice(-1)[0].number + 1) : setTripNumber(1);
 	}, [tripItems]);
 

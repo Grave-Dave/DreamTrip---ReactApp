@@ -10,10 +10,8 @@ import thunderstorm from '../img/weather/thunderstorm.png';
 import unknown from '../img/weather/unknown.png';
 
 export default function Weather(props) {
-    console.log(props);
 	const {} = useContext(Context);
 	const [weather, setWeather] = useState(0);
-	console.log(weather);
 
 	useEffect(() => {
 		fetch(
@@ -29,7 +27,6 @@ export default function Weather(props) {
 					hum: data.list[props.day].main.humidity,
 					date: (data.list[props.day].dt_txt).split(' ')[0],
 				});
-				console.log(data);
 			});
 	}, []);
 

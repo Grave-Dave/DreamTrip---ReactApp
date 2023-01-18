@@ -4,7 +4,7 @@ import img2 from '../img/attraction.png';
 import img3 from '../img/picture.png';
 
 export default function TripDetails(props) {
-	console.log(props);
+
 	return (
 		<div className='attraction-item'>
 			<h1 className='attraction-heading'>{props.name}</h1>

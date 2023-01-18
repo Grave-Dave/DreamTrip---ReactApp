@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { GoogleMap, useLoadScript, MarkerF, InfoWindowF } from '@react-google-maps/api';
 import { Context } from './userContext';
-import { useEffect } from 'react';
 import icon from '../img/ordynary.png';
 import icon2 from '../img/hovered.png';
 import icon3 from '../img/chosen.png';
@@ -29,7 +28,7 @@ function Map({ coordinates }) {
 
 	let markers = placesData.map(place => {
 		return (
-			<div>
+			<div key={place.id+0}>
 				<MarkerF
 					key={place.id}
 					position={{ lat: Number(place.latitude), lng: Number(place.longitude) }}
@@ -55,7 +54,7 @@ function Map({ coordinates }) {
 							handleShowing(place.id);
 							hover(place.name);
 						}}
-						options={{ pixelOffset: new window.google.maps.Size(0, -29) }}
+						options={{ pixelOffset: new window.google.maps.Size(0, -31) }}
 						anchor={<MarkerF position={{ lat: Number(place.latitude), lng: Number(place.longitude) }} />}>
 						<div className='info-window'>
 							<h3>{place.name}</h3>

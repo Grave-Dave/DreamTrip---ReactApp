@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import cloud from '../img/weather/cloud.png';
 import TripDetails from '../components/TripDetails';
 import Weather from '../api/WeatherApi';
 import { Context } from '../components/userContext';
@@ -12,12 +11,6 @@ function Trip(props) {
 	const navigate = useNavigate();
 
 	const thisTrip = tripItems.find(trip => trip.number === Number(tripId));
-
-	// function checkParams() {
-	// 	thisTrip ? console.log('ok') : navigate('/')
-
-	// }
-	// checkParams()
 
 	const travelTimeInMs = Date.parse(thisTrip.formData.endDate) - Date.parse(thisTrip.formData.startDate);
 	const travelTimeInDays = travelTimeInMs / 1000 / 60 / 60 / 24 + 1;
@@ -44,8 +37,6 @@ function Trip(props) {
 	const weathers = getWeather().map((day, i) => {
 		return <Weather key={i} day={day} coords={thisTrip.coordinates} />;
 	});
-
-	console.log(attractions);
 
 	return (
 		<div className='trip-page'>
