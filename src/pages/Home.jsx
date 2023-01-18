@@ -25,6 +25,11 @@ function Home() {
 		}
 	}, []);
 
+	useEffect(()=>{
+		localStorage.setItem('trips', JSON.stringify(tripItems))		
+	}, [tripItems])
+
+
 	const trips = tripItems.map(trip=>{
 		return <TripItem key={trip.number} trip={trip} />
 	})

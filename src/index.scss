@@ -235,6 +235,11 @@ main {
 					align-items: center;
 					justify-content: center;
 					column-gap: 2em;
+					img{
+						width: 200px;
+						height: 150px;
+						object-fit: cover;
+					}
 					.trip-details {
 						display: flex;
 						flex-direction: column;
@@ -673,7 +678,7 @@ main {
 		background-color: rgba(0, 0, 0, 0.4);
 		z-index: -1;
 	}
-	a{
+	a {
 		color: #fff;
 	}
 	.fa-arrow-left {
@@ -702,7 +707,7 @@ main {
 		font-size: 2rem;
 	}
 	.img-box {
-		max-width: 370px;
+		max-width: 400px;
 		width: 100%;
 		border-radius: 15px;
 		overflow: hidden;
@@ -739,11 +744,18 @@ main {
 		text-align: center;
 		&-text {
 			@include trip-card;
+			align-items: start;
+			padding: 1em 3em;
 			.bolder {
 				font-weight: bolder;
 			}
+			.bolder.city {
+				font-weight: bolder;
+				text-transform: uppercase;
+			}
 		}
 		h2 {
+			align-self: center;
 			text-transform: uppercase;
 			padding: 2em 2em 1em;
 			font-size: 1.8rem;
@@ -757,6 +769,8 @@ main {
 		.weather {
 			@include trip-card;
 			justify-content: space-around;
+			min-height: 250px;
+			margin: 0 15em;
 			h3 {
 				margin-top: 1em;
 				padding: 1.5em 1em 1em;
@@ -770,7 +784,7 @@ main {
 				justify-content: center;
 				flex-wrap: wrap;
 				gap: 1em;
-				padding: 5em 0;
+				padding: 3em 0;
 			}
 			&-item {
 				display: flex;
@@ -795,14 +809,84 @@ main {
 				}
 			}
 		}
-		.attraction{
+		.attraction {
 			@include trip-card;
+			overflow-x: auto;
+			align-items: flex-start;
+			padding: 1em;
 			h3 {
-				margin-top: 1em;
-				padding: 1.5em 1em 1em;
+				margin: 1em 0 0 2em;
+				padding: 1.5em 1em .5em;
 				text-transform: uppercase;
 				font-size: 1.4rem;
 				border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+			}
+			&-box {
+				display: flex;
+				padding: 1em;
+
+				.attraction-item {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					flex: 0 0 auto;
+					padding: 1em;
+					max-height: 400px;	
+					width: 100%;
+					max-width: 350px;		
+					border-radius: 5px;		
+					overflow-y: auto;
+					box-shadow: rgba(0, 0, 0, 0.26) 0px 2px 4px 0px inset;
+					background-color: rgba(141, 223, 244, 0.5);
+
+					.attraction-heading {
+						font-size: 1.6rem;
+						margin-bottom: 1em;
+					}
+					img {
+						max-width: 270px;
+						min-height: 180px;
+						object-fit: cover;
+					}
+					.rank-box {
+						display: flex;
+						flex-wrap: wrap;
+						justify-content: center;
+						.place-rank {
+							padding-top: 1em;
+							font-size: 1.4rem;
+							i{
+								margin-right: .5em;
+							}
+						}
+					}
+					a {
+						padding: .7em 1em;
+						font-size: 1.4rem;
+						text-decoration: none;
+						color: #000 ;
+						background-color:rgb(234, 224, 23) ;
+						border-radius: 25px;
+						box-shadow: 0 0 4px #000;
+						transition: background-color .3s;
+					}
+					a:hover{
+						background-color: rgb(196, 186, 7)
+					}
+					.attraction-description {
+						padding-top: 2em;
+						h4{
+							font-size: 1.3rem;
+						}
+						p{
+							text-align: left;
+							font-size: 1.3rem;
+						}
+						p.empty{
+							text-align: center;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -859,7 +943,7 @@ footer {
 	}
 }
 
-@media (min-width: 1092px) {
+@media (min-width: 1167px) {
 	.trip-box {
 		top: 200px;
 	}

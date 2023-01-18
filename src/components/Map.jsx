@@ -45,17 +45,17 @@ function Map({ coordinates }) {
 						hover(place.name);
 						handleShowing(place.id);
 					}}
-					options={place.isHovered ? { icon: icon2 } : place.isSaved ? { icon: icon3 } : { icon: icon }}
+					options={place.isHovered ? { icon: icon2, zIndex:100 } : place.isSaved ? { icon: icon3, zIndex:100 } : { icon: icon, zIndex:0 }}					
 				/>
 				{place.isShowing && (
 					<InfoWindowF
-						key={place.id + 1}
+						key={place.id+1}
 						position={{ lat: Number(place.latitude), lng: Number(place.longitude) }}
 						onCloseClick={() => {
 							handleShowing(place.id);
 							hover(place.name);
 						}}
-						options={{ pixelOffset: new window.google.maps.Size(0, -27) }}
+						options={{ pixelOffset: new window.google.maps.Size(0, -29) }}
 						anchor={<MarkerF position={{ lat: Number(place.latitude), lng: Number(place.longitude) }} />}>
 						<div className='info-window'>
 							<h3>{place.name}</h3>
@@ -82,7 +82,7 @@ function Map({ coordinates }) {
 	});
 
 	return isLoaded ? (
-		<GoogleMap mapContainerStyle={containerStyle} center={coordinates} zoom={12}>
+		<GoogleMap mapContainerStyle={containerStyle} center={coordinates} zoom={13}>
 			{markers.length ? markers : <MarkerF position={coordinates} />}
 		</GoogleMap>
 	) : (

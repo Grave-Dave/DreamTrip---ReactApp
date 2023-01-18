@@ -103,6 +103,10 @@ function Form() {
 		width: setProgressBar(step),
 	};
 
+	const tomorrow  = new Date()
+	tomorrow.setDate(tomorrow.getDate()+1);	
+	const minDate = tomorrow.toISOString().split("T")[0]
+
 	return (
 		<div>
 			<Header />
@@ -124,6 +128,7 @@ function Form() {
 									id='start-date'
 									onChange={e => handleChange(e)}
 									value={formData.startDate}
+									min= {minDate}
 								/>
 							</div>
 							<div className='input-box'>
@@ -134,6 +139,7 @@ function Form() {
 									id='end-date'
 									onChange={e => handleChange(e)}
 									value={formData.endDate}
+									min= {formData.startDate || minDate}
 								/>
 							</div>
 							<div className='input-box'>
@@ -144,6 +150,7 @@ function Form() {
 									id='travelers'
 									onChange={e => handleChange(e)}
 									value={formData.travelers}
+									min="1"
 								/>
 							</div>
 						</div>
